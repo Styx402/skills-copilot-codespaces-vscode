@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Answeri nalang by Bayot Na Michael</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: pink;
+            color: black;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #question {
+            font-size: 24px;
+            margin-top: 50px;
+            font-weight: bold;
+        }
+        .choices {
+            margin-top: 20px;
+        }
+        .choice {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: white;
+            border: 3px solid black;
+            display: inline-block;
+            margin: 10px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 5px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+        }
+        .choice:hover {
+            background-color: lightgray;
+            color: black;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Answeri nalang by Bayot Na Michael</h1>
+    <p id="question">Ano pangalan mo?</p>
+    <div class="choices">
+        <div class="choice" onclick="wrongAnswer(0)">Lorejane</div>
+        <div class="choice" onclick="wrongAnswer(1)">Maria</div>
+        <div class="choice" onclick="wrongAnswer(2)">Pedro</div>
+        <div class="choice" onclick="wrongAnswer(3)">Anna</div>
+    </div>
+
+    <!-- Background Music (Calm) -->
+    <audio autoplay loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-relaxing.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const questions = [
+            "Ano pangalan mo?",
+            "Ilang taon ka na?",
+            "Saan ka nakatira?",
+            "Ano paborito mong kulay?",
+            "Sino crush mo?",
+            "Ganda/gwapo mo ba?",
+            "Anong ginagawa mo ngayon?",
+            "Anong gusto mong kainin?",
+            "Pwede na ba akong umalis?",
+            "Tama na nga!"
+        ];
+
+        const fakeAnswers = [
+            ["Lorejane", "Maria", "Pedro", "Anna"],
+            ["16", "15", "20", "25"],
+            ["Luzon", "Visayas", "Mindanao", "Bahay nyo"],
+            ["Pula", "Bughaw", "Dilaw", "Green"],
+            ["Secret", "Wala", "Meron", "Hindi ko sasabihin"],
+            ["Oo", "Hindi", "Ewan", "Depende"],
+            ["Wala lang", "Nagpapahinga", "Naglalaro", "Tumitingin sa screen"],
+            ["Adobo", "Sinigang", "Burger", "Ice Cream"],
+            ["Oo", "Hindi", "Bahala ka", "Sana"],
+            ["Ayoko", "Tama na", "Bye", "Wala na akong pake"]
+        ];
+
+        const trollAnswers = [
+            "❗ DI KO NAMAN TINATANONG KUNG SINO KA EH ❗",
+            "❗ MATANDA KA NA, PERO ISIP BATA PA RIN ❗",
+            "❗ SA BAHAY NYO? WOW, ANG TALINO MO NAMAN ❗",
+            "❗ WALA NAMANG PAKE ANG MUNDO SA KULAY MO ❗",
+            "❗ NAKO, WALA KA NAMANG CHANCE EH ❗",
+            "❗ FEELING MO LANG YUN ❗",
+            "❗ NAG-AAKSAYA NG ORAS, HALATA NAMAN ❗",
+            "❗ KAHIT ANO, WALA NAMAN MAGPAPAKAIN SAYO ❗",
+            "❗ HINDI, DI KITA PAPAKAWALAN HAHAHA ❗",
+            "❗ ABA, GALIT? HAHAHA UMIAK KA NA LANG! ❗"
+        ];
+
+        let index = 0;
+
+        function nextQuestion() {
+            if (index >= questions.length) {
+                index = 0;
+            }
+            document.getElementById("question").innerText = questions[index];
+
+            let choices = document.getElementsByClassName("choice");
+            for (let i = 0; i < choices.length; i++) {
+                choices[i].innerText = fakeAnswers[index][i];
+                choices[i].style.display = "inline-block";
+            }
+
+            index++;
+        }
+
+        function wrongAnswer(choiceIndex) {
+            // Diretso na sa white screen at walang alert popup
+            document.body.style.backgroundColor = "white";
+            document.body.style.color = "black";
+            document.body.innerHTML = `<h1 style="font-size: 40px; font-weight: bold;">${trollAnswers[index - 1]}</h1>`;
+
+            setTimeout(() => {
+                document.body.style.backgroundColor = "pink";
+                document.body.style.color = "black";
+                document.body.innerHTML = `
+                    <h1>Answeri nalang by Bayot Na Michael</h1>
+                    <p id="question"></p>
+                    <div class="choices">
+                        <div class="choice" onclick="wrongAnswer(0)"></div>
+                        <div class="choice" onclick="wrongAnswer(1)"></div>
+                        <div class="choice" onclick="wrongAnswer(2)"></div>
+                        <div class="choice" onclick="wrongAnswer(3)"></div>
+                    </div>
+                `;
+                nextQuestion();
+            }, 2000);
+        }
+
+        nextQuestion();
+    </script>
+
+</body>
+</html>
